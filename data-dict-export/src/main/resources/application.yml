@@ -1,0 +1,20 @@
+mybatis:
+  configuration:
+    #是否开启驼峰转换
+    map-underscore-to-camel-case: true
+    #是否在null时也调用setter显示
+    call-setters-on-nulls: true
+    cache-enabled: true
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    database: MySQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+logging:
+  config: classpath:config/log4j2-spring.xml
