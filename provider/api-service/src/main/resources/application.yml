@@ -1,0 +1,18 @@
+server:
+  port: 8101
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: api-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  configuration:
+    #是否开启驼峰转换
+    map-underscore-to-camel-case: true
+    #是否在null时也调用setter显示
+    call-setters-on-nulls: true
+    cache-enabled: true
