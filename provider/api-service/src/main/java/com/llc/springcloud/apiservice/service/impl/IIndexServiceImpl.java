@@ -6,14 +6,13 @@ import com.llc.springcloud.apiservice.dao.TableStructsMapper;
 import com.llc.springcloud.apiservice.service.IIndexService;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Service("indexService")
@@ -84,4 +83,58 @@ public class IIndexServiceImpl implements IIndexService {
         XWPFRun run = paragraph.createRun();
         run.setText(text);
     }
+
+    @Value("${server.port}")
+    String port;
+
+    @Override
+    public String getMyHost() {
+        return port;
+    }
+
+    public static void main(String[] args) {
+        int run = 0;
+        int sub = 0;
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        List<Future<String>> futureList = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            if (i % 2 == 0){
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println(Thread.currentThread().getName());
+                    }
+                });
+            }else {
+                Future<String> future = executorService.submit(new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        System.out.println(Thread.currentThread().getName());
+                        return System.currentTimeMillis() + "";
+                    }
+                });
+
+                futureList.add(future);
+            }
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < 10; i++) {
+            Future f = futureList.get(i);
+            if (f != null){
+                try {
+                    System.out.println(f.get());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        executorService.shutdown();
+    }
+
+
 }
