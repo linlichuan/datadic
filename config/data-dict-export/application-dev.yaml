@@ -1,0 +1,30 @@
+server:
+  port: 8001
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: app-data-dict-export
+  redis:
+    host: 120.79.39.218
+    port: 6379
+#logging:
+#  config: classpath:config/log4j2-spring.xml
+  level:
+    com:
+      llc:
+        springcloud:
+          apiclient:
+            IIndexService: debug
+feign:
+  compression:
+    request:
+      #请求压缩
+      enabled: true
+      #压缩资源类型
+      mime-types: text/xml,application/xml,application/json
+      #开始压缩的阈值
+      min-request-size: 2048
+testEnv: dev
