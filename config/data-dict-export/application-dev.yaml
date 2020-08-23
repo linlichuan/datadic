@@ -27,4 +27,11 @@ feign:
       mime-types: text/xml,application/xml,application/json
       #开始压缩的阈值
       min-request-size: 2048
+  hystrix:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
 testEnv: dev
