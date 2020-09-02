@@ -1,0 +1,9 @@
+#spring:
+#  application:
+#    name: app-data-dict-export
+#  cloud:
+#    config:
+#      #远程配置服务的地址
+#      uri: http://localhost:8888/
+#      label: master
+#      profile: dev

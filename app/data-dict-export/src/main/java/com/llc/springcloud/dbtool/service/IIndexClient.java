@@ -4,6 +4,7 @@ import com.llc.springcloud.apiclient.index.IIndexService;
 import com.llc.springcloud.dbtool.config.FeignClientConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 
-@FeignClient(name = "api-service",configuration = FeignClientConfig.class)
+@FeignClient(name = "api-service",configuration = FeignClientConfig.class,
+        fallbackFactory = FeignClientConfig.HystrixClientFactory.class)
 public interface IIndexClient extends IIndexService {
 }

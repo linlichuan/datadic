@@ -7,6 +7,7 @@ import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,9 @@ import java.net.URLEncoder;
 @Api(tags = {"导出接口"})
 public class IndexController {
     static Logger log = LoggerFactory.getLogger(IndexController.class);
+
+    @Value("${testEnv}")
+    String currentEnv;
 
     @Autowired
     IIndexClient iIndexClient;
@@ -78,5 +82,11 @@ public class IndexController {
     @RequestMapping(value = "/host",method = RequestMethod.GET)
     public String getHost(){
         return iIndexClient.getHost();
+    }
+
+    @ApiOperation(value = "获取当前环境",httpMethod = "GET")
+    @RequestMapping(value = "/env",method = RequestMethod.GET)
+    public String getEnv(){
+        return this.currentEnv;
     }
 }

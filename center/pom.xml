@@ -4,6 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>eureka</module>
+        <module>config-center-8888</module>
+        <module>hystrix-dashboard-8889</module>
+        <module>zuul-gateway-8887</module>
     </modules>
     <parent>
         <groupId>com.llc</groupId>
