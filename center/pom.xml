@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>eureka</module>
+        <module>eureka-8761</module>
         <module>config-center-8888</module>
         <module>hystrix-dashboard-8889</module>
         <module>zuul-gateway-8887</module>

@@ -8,7 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <name>dbtool-8001</name>
-    <artifactId>dbtool-8001</artifactId>
+    <artifactId>dbtool</artifactId>
 
 
     <build>
