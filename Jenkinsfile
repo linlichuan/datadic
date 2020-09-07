@@ -6,12 +6,16 @@ pipeline{
     }
     environment{
         CUSTOMER_ARG = 'customer_arg'
+        HALLO_WORD = 'hallo word'
     }
     stages{
         stage('build'){
             steps{
                 sh 'java -version'
                 echo CUSTOMER_ARG
+            }
+            steps{
+                echo HALLO_WORD
             }
         }
     }
