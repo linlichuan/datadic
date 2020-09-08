@@ -11,7 +11,6 @@ pipeline{
     stages{
         stage('build'){
             steps{
-                sh 'java -version'
                 echo CUSTOMER_ARG
             }
             steps{
