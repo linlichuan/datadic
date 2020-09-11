@@ -1,4 +1,4 @@
-package com.llc.springcloud.eureka.hibernate;
+package com.llc.springcloud.common.hibernate;
 
 
 import javax.persistence.*;

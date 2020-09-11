@@ -1,4 +1,4 @@
-package com.llc.springcloud.eureka;
+package com.llc.springcloud.common;
 
 public class TableStructs {
     String tableSchema;
