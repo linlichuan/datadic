@@ -5,6 +5,7 @@
     <modules>
         <module>web</module>
         <module>pojo</module>
+        <module>util</module>
     </modules>
     <parent>
         <groupId>com.llc</groupId>
