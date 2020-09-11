@@ -28,11 +28,17 @@ public class DynamicDataSourceRouter extends AbstractRoutingDataSource {
         return context.get();
     }
 
-    public static void setContextKey(String key){
+    public static void setContextKey(String key) {
         context.set(key);
     }
 
-    public static void clearContextKey(){
+    public static String getContextKey() {
+        return context.get();
+    }
+
+    public static void clearContextKey() {
         context.remove();
     }
+
+
 }

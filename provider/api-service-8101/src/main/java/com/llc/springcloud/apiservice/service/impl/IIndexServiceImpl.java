@@ -1,6 +1,6 @@
 package com.llc.springcloud.apiservice.service.impl;
 
-import com.llc.springcloud.eureka.TableStructs;
+import com.llc.springcloud.common.TableStructs;
 import com.llc.springcloud.apiservice.annotation.DataSourceSwitch;
 import com.llc.springcloud.apiservice.dao.TableStructsMapper;
 import com.llc.springcloud.apiservice.service.IIndexService;

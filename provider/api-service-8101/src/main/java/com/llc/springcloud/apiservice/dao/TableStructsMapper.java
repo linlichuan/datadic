@@ -1,6 +1,6 @@
 package com.llc.springcloud.apiservice.dao;
 
-import com.llc.springcloud.eureka.TableStructs;
+import com.llc.springcloud.common.TableStructs;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
