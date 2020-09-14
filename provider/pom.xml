@@ -6,7 +6,6 @@
         <module>api-service-8101</module>
         <module>compute-service-8102</module>
         <module>zh-service-8103</module>
-        <module>mybatis-generator-8104</module>
     </modules>
     <parent>
         <groupId>com.llc</groupId>

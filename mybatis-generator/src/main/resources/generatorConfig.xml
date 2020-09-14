@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="Mybatis3">
+        <property name="" value=""/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+        </plugin>
+        <commentGenerator>
+            <!--去除自动生成的注释-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/yuexing?useUnicode=true&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true&amp;characterEncoding=utf-8"
+                        userId="root" password="root"/>
+        <javaTypeResolver>
+
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.llc.springcloud.common.mybatis" targetProject="gen-output/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.llc.springcloud.service.mybatis" targetProject="gen-output/mapper">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--ANNOTATEDMAPPER：使用注解的方式；XMLMAPPER：使用XML的方式-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.llc.springcloud.dao.mybatis" targetProject="gen-output/dao">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="crm_student">
+
+        </table>
+    </context>
+</generatorConfiguration>
