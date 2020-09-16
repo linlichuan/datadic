@@ -1,5 +1,6 @@
 package com.llc.springcloud.apiservice.controller;
 
+import com.llc.springcloud.apiservice.dto.TableConnectMsgDto;
 import com.llc.springcloud.apiservice.service.IIndexService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -15,8 +16,8 @@ import java.net.URLEncoder;
 
 
 @RestController
-@RequestMapping("/index")
-@Api(tags = {"导出接口"})
+@RequestMapping("/dbTool")
+@Api(tags = {"导出表结构接口"})
 public class DbToolController {
 
     static Logger log = LoggerFactory.getLogger(DbToolController.class);
@@ -41,6 +42,12 @@ public class DbToolController {
             return e.getMessage();
         }
         return "success";
+    }
+
+    @ApiOperation(value = "导出表结构，可以传数据库链接")
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public String customExportTableInfo(TableConnectMsgDto tableConnectMsgDto) {
+        return "";
     }
 
     @ApiOperation(value = "获取端口",httpMethod = "GET")

@@ -5,6 +5,8 @@ import com.llc.springcloud.apiservice.annotation.DataSourceSwitch;
 import com.llc.springcloud.apiservice.dao.TableStructsMapper;
 import com.llc.springcloud.apiservice.service.IIndexService;
 import org.apache.poi.xwpf.usermodel.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,16 @@ import java.util.stream.Collectors;
 
 @Service("indexService")
 public class IIndexServiceImpl implements IIndexService {
+
+    static Logger log = LoggerFactory.getLogger(IIndexServiceImpl.class);
+
     @Autowired
     TableStructsMapper tableStructsMapper;
 
     @DataSourceSwitch
     @Override
     public void exportTableInfo(String dataSourceKey, String schema, HttpServletResponse response) throws Exception {
+        log.info("export table !!!!!!");
         List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(schema);
         XWPFDocument document = new XWPFDocument();
         createDocument(tableInfos,document);
