@@ -3,6 +3,7 @@ package com.llc.springcloud.apiservice.config;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.util.Map;
 
 
@@ -39,6 +40,30 @@ public class DynamicDataSourceRouter extends AbstractRoutingDataSource {
     public static void clearContextKey() {
         context.remove();
     }
-
-
+    
+    @Override
+    protected Object resolveSpecifiedLookupKey(Object lookupKey) {
+        return super.resolveSpecifiedLookupKey(lookupKey);
+    }
+    
+    @Override
+    protected DataSource resolveSpecifiedDataSource(Object dataSource) throws IllegalArgumentException {
+        return super.resolveSpecifiedDataSource(dataSource);
+    }
+    
+    public void putNewDataSource(Object lookupKey, Object object) {
+        Object key = resolveSpecifiedLookupKey(lookupKey);
+        DataSource dataSource = resolveSpecifiedDataSource(object);
+        try {
+            Field field = AbstractRoutingDataSource.class.getDeclaredField("resolvedDataSources");
+            field.setAccessible(true);
+            Map<Object, DataSource> resolvedDataSources = (Map<Object, DataSource>)field.get(this);
+            if (!resolvedDataSources.containsKey(key)) {
+                resolvedDataSources.put(key, dataSource);
+                field.set(this, resolvedDataSources);
+            }
+        } catch (IllegalAccessException | NoSuchFieldException iae) {
+            iae.printStackTrace();
+        }
+    }
 }

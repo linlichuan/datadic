@@ -15,7 +15,6 @@
         <module>common</module>
         <module>center</module>
         <module>provider</module>
-        <module>apiClient</module>
     </modules>
 
     <properties>
@@ -76,35 +75,24 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>logback-classic</artifactId>
+                    <groupId>ch.qos.logback</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--用于配置更新事件广播 需要rabbitmq-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
-        <!--=====================日志========================-->
-        <!--=====================
-            引入slf4j接口，
-            引入想要的日志实现，
-            引入日志实现的桥接包
-            如果其他框架使用了其他日志系统，
-            则引入对应的适配包将该日志系统转换为slf4j
-        ========================-->
-        <!--slf4j 接口api-->
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.30</version>
         </dependency>
-        <!--log4j2 桥接包-->
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.13.1</version>
-        </dependency>
-        <!--=============================================-->
 
         <dependency>
             <groupId>io.springfox</groupId>

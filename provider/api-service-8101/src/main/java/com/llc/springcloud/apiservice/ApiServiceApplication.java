@@ -1,10 +1,11 @@
 package com.llc.springcloud.apiservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import com.llc.springcloud.apiservice.config.DynamicDataSource;
 
@@ -13,10 +14,13 @@ import com.llc.springcloud.apiservice.config.DynamicDataSource;
 @EnableDiscoveryClient
 @EntityScan(basePackages = {"com.llc.springcloud.common.hibernate"})
 @Import({DynamicDataSource.class})
-public class application {
+public class ApiServiceApplication {
 
+    private static final Logger log = LoggerFactory.getLogger(ApiServiceApplication.class);
+    
     public static void main(String[] args) {
-        SpringApplication.run(application.class,args);
+        log.info("hallo");
+        SpringApplication.run(ApiServiceApplication.class,args);
     }
 
 }

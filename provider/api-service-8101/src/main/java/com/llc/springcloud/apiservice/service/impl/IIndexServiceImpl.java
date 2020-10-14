@@ -1,5 +1,11 @@
 package com.llc.springcloud.apiservice.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.llc.springcloud.apiservice.annotation.DatabaseParam;
+import com.llc.springcloud.apiservice.dto.TableConnectMsgDto;
+import com.llc.springcloud.apiservice.enums.DatabaseParamEnum;
 import com.llc.springcloud.common.TableStructs;
 import com.llc.springcloud.apiservice.annotation.DataSourceSwitch;
 import com.llc.springcloud.apiservice.dao.TableStructsMapper;
@@ -27,8 +33,8 @@ public class IIndexServiceImpl implements IIndexService {
 
     @DataSourceSwitch
     @Override
-    public void exportTableInfo(String dataSourceKey, String schema, HttpServletResponse response) throws Exception {
-        log.info("export table !!!!!!");
+    public void exportTableInfo(@DatabaseParam(type = DatabaseParamEnum.DATA_SOURCE) String dataSourceKey,
+                                String schema, HttpServletResponse response) throws Exception {
         List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(schema);
         XWPFDocument document = new XWPFDocument();
         createDocument(tableInfos,document);
@@ -89,58 +95,20 @@ public class IIndexServiceImpl implements IIndexService {
         XWPFRun run = paragraph.createRun();
         run.setText(text);
     }
-
-    @Value("${server.port}")
-    String port;
-
+    
+    @DataSourceSwitch
     @Override
-    public String getMyHost() {
-        return port;
+    public void getTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
+                                    @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
+                                    @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
+                                    String database,
+                                    HttpServletResponse response) throws Exception {
+        List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(database);
+        XWPFDocument document = new XWPFDocument();
+        createDocument(tableInfos,document);
+        OutputStream out = response.getOutputStream();
+        document.write(out);
+        document.close();
+        out.close();
     }
-
-    public static void main(String[] args) {
-        int run = 0;
-        int sub = 0;
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-        List<Future<String>> futureList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            if (i % 2 == 0){
-                executorService.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(Thread.currentThread().getName());
-                    }
-                });
-            }else {
-                Future<String> future = executorService.submit(new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        System.out.println(Thread.currentThread().getName());
-                        return System.currentTimeMillis() + "";
-                    }
-                });
-
-                futureList.add(future);
-            }
-        }
-
-        System.out.println();
-
-        for (int i = 0; i < 10; i++) {
-            Future f = futureList.get(i);
-            if (f != null){
-                try {
-                    System.out.println(f.get());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        executorService.shutdown();
-    }
-
-
 }

@@ -33,7 +33,6 @@ public class DbToolController {
     @RequestMapping(value = "/export/{dataSourceKey}/{schema}",method = RequestMethod.GET)
     public String exportTableInfo(@PathVariable String dataSourceKey, @PathVariable String schema, HttpServletResponse response){
         try {
-            log.info("??????");
             response.setContentType("application/msword");
             response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(dataSourceKey + System.currentTimeMillis() + ".docx", "utf-8"));
             indexService.exportTableInfo(dataSourceKey,schema,response);
@@ -46,13 +45,15 @@ public class DbToolController {
 
     @ApiOperation(value = "导出表结构，可以传数据库链接")
     @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public String customExportTableInfo(TableConnectMsgDto tableConnectMsgDto) {
-        return "";
+    public String customExportTableInfo(TableConnectMsgDto dto, HttpServletResponse response) {
+        try {
+            response.setContentType("application/msword");
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(System.currentTimeMillis() + ".docx", "utf-8"));
+            indexService.getTableInformation(dto.getUrl(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "success";
     }
-
-    @ApiOperation(value = "获取端口",httpMethod = "GET")
-    @RequestMapping(value = "/host",method = RequestMethod.GET)
-    public String getMyPort(){
-        return indexService.getMyHost();
-    }
+    
 }

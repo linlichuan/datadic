@@ -1,0 +1,5 @@
+server:
+  port: 8105
+eureka:
+  client:
+    enabled: false
