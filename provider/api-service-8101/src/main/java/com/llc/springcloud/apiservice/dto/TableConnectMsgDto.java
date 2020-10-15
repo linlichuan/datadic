@@ -8,12 +8,18 @@ public class TableConnectMsgDto {
 
 	@ApiModelProperty("连接数据库的url")
 	private String url;
+	
 	@ApiModelProperty("用户名")
 	private String userName;
+	
 	@ApiModelProperty("密码")
 	private String password;
+	
 	@ApiModelProperty("使用的数据库")
 	private String database;
+	
+	@ApiModelProperty("数据表")
+	private String tableName;
 
 	public TableConnectMsgDto() {
 		super();
@@ -49,5 +55,13 @@ public class TableConnectMsgDto {
 
 	public String getDatabase() {
 		return this.database;
+	}
+	
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+	
+	public String getTableName() {
+		return this.tableName;
 	}
 }

@@ -48,10 +48,10 @@ public class DbToolController {
 
     @ApiOperation(value = "获取表结构信息，可以传数据库链接")
     @RequestMapping(value = "/table/detail", method = RequestMethod.POST)
-    public JsonResponse<List<TableStructs>> customExportTableInfo(TableConnectMsgDto dto, HttpServletResponse response) {
+    public JsonResponse<List<TableStructs>> customExportTableInfo(TableConnectMsgDto dto) {
         List<TableStructs> result = null;
         try {
-            result = indexService.getTableInformation(dto.getUrl(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), response);
+            result = indexService.getTableInformation(dto);
         } catch (Exception e) {
             e.printStackTrace();
         }

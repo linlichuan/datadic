@@ -1,6 +1,7 @@
 package com.llc.springcloud.apiservice.service.impl;
 
 import com.llc.springcloud.apiservice.annotation.DatabaseParam;
+import com.llc.springcloud.apiservice.dto.TableConnectMsgDto;
 import com.llc.springcloud.apiservice.enums.DatabaseParamEnum;
 import com.llc.springcloud.apiservice.entity.TableStructs;
 import com.llc.springcloud.apiservice.annotation.DataSourceSwitch;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 public class IIndexServiceImpl implements IIndexService {
 
     static Logger log = LoggerFactory.getLogger(IIndexServiceImpl.class);
+    
+    final static String INFORMATION_SCHEMA = "information_schema";
 
     @Autowired
     TableStructsMapper tableStructsMapper;
@@ -29,7 +32,7 @@ public class IIndexServiceImpl implements IIndexService {
     @Override
     public void exportTableInfo(@DatabaseParam(type = DatabaseParamEnum.DATA_SOURCE) String dataSourceKey,
                                 String schema, HttpServletResponse response) throws Exception {
-        List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(schema);
+        List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(schema, null);
         XWPFDocument document = new XWPFDocument();
         createDocument(tableInfos,document);
         OutputStream out = response.getOutputStream();
@@ -90,13 +93,25 @@ public class IIndexServiceImpl implements IIndexService {
         run.setText(text);
     }
     
-    @DataSourceSwitch
     @Override
-    public List<TableStructs> getTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
-                                    @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
-                                    @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
-                                    String database,
-                                    HttpServletResponse response) throws Exception {
-        return tableStructsMapper.getTableInfo(database);
+    public List<TableStructs> getTableInformation(TableConnectMsgDto dto) {
+        StringBuilder url = new StringBuilder(dto.getUrl());
+        int slashIdx = url.lastIndexOf("/");
+        if (slashIdx == url.length() - 1) {
+            url.append(INFORMATION_SCHEMA);
+        } else {
+            url.append("/").append(INFORMATION_SCHEMA);
+        }
+        
+        return doGetTableInformation(url.toString(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), dto.getTableName());
+    }
+    
+    @DataSourceSwitch
+    public List<TableStructs> doGetTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
+                                                    @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
+                                                    @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
+                                                    String database,
+                                                    String tableName) {
+        return tableStructsMapper.getTableInfo(database, tableName);
     }
 }

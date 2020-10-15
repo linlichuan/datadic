@@ -24,9 +24,12 @@ public interface TableStructsMapper {
             "FROM",
             "   INFORMATION_SCHEMA.COLUMNS",
             "WHERE",
-            "   TABLE_SCHEMA = #{schema}",
+            "   TABLE_SCHEMA = #{schema} ",
+            "<if test=\"tableName != null and tableName != ''\">",
+            "   AND TABLE_NAME = #{tableName}",
+            "</if>",
             "</script>"
     })
-    public List<TableStructs> getTableInfo(@Param("schema")String schema);
+    public List<TableStructs> getTableInfo(@Param("schema")String schema,@Param("tableName") String tableName);
 }
 
