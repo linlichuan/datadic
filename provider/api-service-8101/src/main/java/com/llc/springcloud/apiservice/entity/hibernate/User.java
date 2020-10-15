@@ -1,4 +1,4 @@
-package com.llc.springcloud.common.hibernate;
+package com.llc.springcloud.apiservice.entity.hibernate;
 
 
 import javax.persistence.*;

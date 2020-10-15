@@ -1,12 +1,8 @@
 package com.llc.springcloud.apiservice.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.llc.springcloud.apiservice.annotation.DatabaseParam;
-import com.llc.springcloud.apiservice.dto.TableConnectMsgDto;
 import com.llc.springcloud.apiservice.enums.DatabaseParamEnum;
-import com.llc.springcloud.common.TableStructs;
+import com.llc.springcloud.apiservice.entity.TableStructs;
 import com.llc.springcloud.apiservice.annotation.DataSourceSwitch;
 import com.llc.springcloud.apiservice.dao.TableStructsMapper;
 import com.llc.springcloud.apiservice.service.IIndexService;
@@ -14,13 +10,11 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.util.*;
-import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Service("indexService")
@@ -98,17 +92,11 @@ public class IIndexServiceImpl implements IIndexService {
     
     @DataSourceSwitch
     @Override
-    public void getTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
+    public List<TableStructs> getTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
                                     @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
                                     @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
                                     String database,
                                     HttpServletResponse response) throws Exception {
-        List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(database);
-        XWPFDocument document = new XWPFDocument();
-        createDocument(tableInfos,document);
-        OutputStream out = response.getOutputStream();
-        document.write(out);
-        document.close();
-        out.close();
+        return tableStructsMapper.getTableInfo(database);
     }
 }

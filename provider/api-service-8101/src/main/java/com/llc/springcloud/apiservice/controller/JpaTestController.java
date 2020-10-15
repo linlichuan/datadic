@@ -1,7 +1,7 @@
 package com.llc.springcloud.apiservice.controller;
 
 import com.llc.springcloud.apiservice.dao.hibernate.UserRepo;
-import com.llc.springcloud.common.hibernate.User;
+import com.llc.springcloud.apiservice.entity.hibernate.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>web</module>
-        <module>pojo</module>
         <module>util</module>
     </modules>
     <parent>

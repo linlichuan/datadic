@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 import com.llc.springcloud.apiservice.config.DynamicDataSource;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.llc.springcloud.web.*", "com.llc.springcloud.apiservice.*"})
 @EnableDiscoveryClient
 @EntityScan(basePackages = {"com.llc.springcloud.common.hibernate"})
 @Import({DynamicDataSource.class})
@@ -19,7 +19,6 @@ public class ApiServiceApplication {
     private static final Logger log = LoggerFactory.getLogger(ApiServiceApplication.class);
     
     public static void main(String[] args) {
-        log.info("hallo");
         SpringApplication.run(ApiServiceApplication.class,args);
     }
 

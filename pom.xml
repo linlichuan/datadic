@@ -83,10 +83,10 @@
             </exclusions>
         </dependency>
         <!--用于配置更新事件广播 需要rabbitmq-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-bus-amqp</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.slf4j</groupId>

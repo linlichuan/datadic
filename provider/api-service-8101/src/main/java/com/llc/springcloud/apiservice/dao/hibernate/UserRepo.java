@@ -1,6 +1,6 @@
 package com.llc.springcloud.apiservice.dao.hibernate;
 
-import com.llc.springcloud.common.hibernate.User;
+import com.llc.springcloud.apiservice.entity.hibernate.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

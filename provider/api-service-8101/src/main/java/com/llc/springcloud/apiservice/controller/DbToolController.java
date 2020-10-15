@@ -2,6 +2,8 @@ package com.llc.springcloud.apiservice.controller;
 
 import com.llc.springcloud.apiservice.dto.TableConnectMsgDto;
 import com.llc.springcloud.apiservice.service.IIndexService;
+import com.llc.springcloud.apiservice.entity.TableStructs;
+import com.llc.springcloud.util.response.JsonResponse;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.util.List;
 
 
 @RestController
@@ -43,17 +46,16 @@ public class DbToolController {
         return "success";
     }
 
-    @ApiOperation(value = "导出表结构，可以传数据库链接")
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public String customExportTableInfo(TableConnectMsgDto dto, HttpServletResponse response) {
+    @ApiOperation(value = "获取表结构信息，可以传数据库链接")
+    @RequestMapping(value = "/table/detail", method = RequestMethod.POST)
+    public JsonResponse<List<TableStructs>> customExportTableInfo(TableConnectMsgDto dto, HttpServletResponse response) {
+        List<TableStructs> result = null;
         try {
-            response.setContentType("application/msword");
-            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(System.currentTimeMillis() + ".docx", "utf-8"));
-            indexService.getTableInformation(dto.getUrl(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), response);
+            result = indexService.getTableInformation(dto.getUrl(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), response);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "success";
+        return JsonResponse.ok(result);
     }
     
 }

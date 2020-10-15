@@ -1,6 +1,9 @@
-package com.llc.springcloud.common;
+package com.llc.springcloud.apiservice.entity;
 
-public class TableStructs {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class TableStructs implements Serializable {
     String tableSchema;
     String tableName;
     String columnName;
