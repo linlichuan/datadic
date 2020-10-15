@@ -1,6 +1,5 @@
 package com.llc.springcloud.apiservice.enums;
 
-import com.llc.springcloud.apiservice.annotation.DatabaseParam;
 
 public enum DatabaseParamEnum {
 	DATA_SOURCE(0),
