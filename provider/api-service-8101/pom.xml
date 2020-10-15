@@ -21,12 +21,6 @@
 
         <dependency>
             <groupId>com.llc</groupId>
-            <artifactId>pojo</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.llc</groupId>
             <artifactId>util</artifactId>
             <version>1.0.0</version>
         </dependency>
