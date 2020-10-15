@@ -10,4 +10,7 @@ public class StringUtil {
 		return text == null || "".equals(text.trim());
 	}
 
+	public static String longToString(Long num) {
+		return num == null ? "" : String.valueOf(num);
+	}
 }
