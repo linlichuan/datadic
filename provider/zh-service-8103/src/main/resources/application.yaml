@@ -1,0 +1,21 @@
+server:
+  port: 8103
+mybatis:
+  mapper-locations: classpath:com/llc/springcloud/zhservice/dao/mapping/**/*.xml
+  configuration:
+    #是否开启驼峰转换
+    map-underscore-to-camel-case: true
+    #是否在null时也调用setter显示
+    call-setters-on-nulls: true
+    cache-enabled: true
+spring:
+  application:
+    name: zh-service-8103
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/llc?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+eureka:
+  client:
+    enabled: false

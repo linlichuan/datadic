@@ -11,5 +11,46 @@
 
     <artifactId>zh-service-8103</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.llc</groupId>
+            <artifactId>util</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.llc</groupId>
+            <artifactId>web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.yaml</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>

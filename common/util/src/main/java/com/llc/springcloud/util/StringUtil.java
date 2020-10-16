@@ -13,4 +13,18 @@ public class StringUtil {
 	public static String longToString(Long num) {
 		return num == null ? "" : String.valueOf(num);
 	}
+
+	public static String join(String[] strs, char separator) {
+		if (strs == null || strs.length == 0) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < strs.length; i++) {
+			sb.append(strs[i]);
+			if (i != strs.length - 1) {
+				sb.append(separator);
+			}
+		}
+		return sb.toString();
+	}
 }

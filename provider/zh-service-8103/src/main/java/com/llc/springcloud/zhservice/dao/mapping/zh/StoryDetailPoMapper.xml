@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llc.springcloud.zhservice.dao.mapper.zh.StoryDetailPoMapper" >
+	<resultMap id="StoryDetailDtoResultMap" type="com.llc.springcloud.zhservice.entity.StoryDetail" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="body" property="body" jdbcType="LONGVARCHAR" />
+		<result column="image_hue" property="imageHue" jdbcType="VARCHAR" />
+		<result column="image_source" property="imageSource" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
+		<result column="detail_id" property="detailId" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="getStoryDetail" resultMap="StoryDetailDtoResultMap">
+		SELECT sd.id, sd.image_hue, sd.image_source, sd.title, sd.url, sd.image, sd.share_url, sd.detail_id, sd.type
+		FROM story_detail as sd
+		WHERE sd.detail_id = #{detailId,jdbcType=INTEGER}
+	</select>
+</mapper>

@@ -16,12 +16,10 @@
 		<dependency>
 			<groupId>com.llc</groupId>
 			<artifactId>util</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.llc</groupId>
 			<artifactId>web</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>

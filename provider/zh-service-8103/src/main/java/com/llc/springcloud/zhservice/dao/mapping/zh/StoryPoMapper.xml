@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llc.springcloud.zhservice.dao.mapper.zh.StoryPoMapper" >
+	<resultMap id="StoryListDtoResultMap" type="com.llc.springcloud.zhservice.entity.Story" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="image_hue" property="imageHue" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="hint" property="hint" jdbcType="VARCHAR" />
+		<result column="ga_prefix" property="gaPrefix" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="story_id" property="storyId" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="images" property="images" jdbcType="LONGVARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="getLatestList" resultMap="StoryListDtoResultMap">
+		SELECT s.id, s.image_hue, s.url, s.hint, s.ga_prefix, s.type, s.story_id, s.create_date, s.images, s.title
+		FROM story as s
+		WHERE s.create_date = #{date,jdbcType=TIMESTAMP}
+	</select>
+</mapper>

@@ -1,15 +1,16 @@
 package com.llc.springcloud.zhservice;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.llc.springcloud.zhservice"})
 @EnableDiscoveryClient
-public class application {
+public class ZHApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(application.class,args);
+        SpringApplication.run(ZHApplication.class,args);
     }
 
 }

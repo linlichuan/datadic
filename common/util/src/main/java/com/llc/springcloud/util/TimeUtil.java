@@ -1,6 +1,7 @@
 package com.llc.springcloud.util;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 public class TimeUtil {
@@ -15,4 +16,11 @@ public class TimeUtil {
 		return getCalender().getTimeInMillis();
 	}
 
+	public static Date getCurrentDate() {
+		Calendar calendar = getCalender();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		return calendar.getTime();
+	}
 }
