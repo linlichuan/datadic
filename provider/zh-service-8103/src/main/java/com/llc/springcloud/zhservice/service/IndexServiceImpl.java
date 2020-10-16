@@ -32,9 +32,10 @@ public class IndexServiceImpl implements IndexService{
 			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/latest");
 			JSONObject json = (JSONObject)JSON.parse(jsonStr);
 			JSONArray array = json.getJSONArray("stories");
-			Story dto = new Story();
+			Story dto = null;
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject obj = array.getJSONObject(i);
+				dto = new Story();
 				dto.setCreateDate(now);
 				dto.setGaPrefix(obj.getString("ga_prefix"));
 				dto.setHint(obj.getString("hint"));
