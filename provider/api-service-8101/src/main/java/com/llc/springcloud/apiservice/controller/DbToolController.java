@@ -51,11 +51,24 @@ public class DbToolController {
     public JsonResponse<List<TableStructs>> customExportTableInfo(TableConnectMsgDto dto) {
         List<TableStructs> result = null;
         try {
-            result = indexService.getTableInformation(dto);
+            result = indexService.getTableInformation(dto.getUrl(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), dto.getTableName());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return JsonResponse.ok(result);
     }
     
+    @ApiOperation(value = "导出表结构信息，可以传数据库链接")
+    @RequestMapping(value = "/exportSelective", method = RequestMethod.POST)
+    public String exportSelective(TableConnectMsgDto dto, HttpServletResponse response) {
+        try {
+            response.setContentType("application/msword");
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(System.currentTimeMillis() + ".docx", "utf-8"));
+            indexService.exportTableInfoSelective(dto.getUrl(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), dto.getTableName(), response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return "success";
+    }
 }

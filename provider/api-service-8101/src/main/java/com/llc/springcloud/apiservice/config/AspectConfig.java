@@ -31,6 +31,8 @@ public class AspectConfig {
     @Resource
     DataSource dataSource;
     
+    final static String INFORMATION_SCHEMA = "information_schema";
+    
     Map<String, Method> methodCache = new HashMap<>();
     Map<String, Method> dataSourceCache = new HashMap<>();
 
@@ -86,7 +88,7 @@ public class AspectConfig {
                         String key = buildKey(dto);
                         if (!dataSourceCache.containsKey(key)) {
                             DruidDataSource druidDataSource = DruidDataSourceBuilder.create().build();
-                            druidDataSource.setUrl(dto.getUrl());
+                            druidDataSource.setUrl(getUrl(dto.getUrl()));
                             druidDataSource.setUsername(dto.getUserName());
                             druidDataSource.setPassword(dto.getPassword());
                             DynamicDataSourceRouter dynamicDataSource = (DynamicDataSourceRouter) dataSource;
@@ -112,5 +114,16 @@ public class AspectConfig {
         Method method = Stream.of(methods).filter(m -> m.getName().equals(methodStr)).findFirst().orElse(null);
         methodCache.put(methodStr, method);
         return method;
+    }
+    
+    public String getUrl(String url) {
+        StringBuilder sb = new StringBuilder(url);
+        int slashIdx = sb.lastIndexOf("/");
+        if (slashIdx == sb.length() - 1) {
+            sb.append(INFORMATION_SCHEMA);
+        } else {
+            sb.append("/").append(INFORMATION_SCHEMA);
+        }
+        return sb.toString();
     }
 }

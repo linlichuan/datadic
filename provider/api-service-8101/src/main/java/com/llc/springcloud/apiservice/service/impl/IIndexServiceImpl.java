@@ -93,25 +93,31 @@ public class IIndexServiceImpl implements IIndexService {
         run.setText(text);
     }
     
+    @DataSourceSwitch
     @Override
-    public List<TableStructs> getTableInformation(TableConnectMsgDto dto) {
-        StringBuilder url = new StringBuilder(dto.getUrl());
-        int slashIdx = url.lastIndexOf("/");
-        if (slashIdx == url.length() - 1) {
-            url.append(INFORMATION_SCHEMA);
-        } else {
-            url.append("/").append(INFORMATION_SCHEMA);
-        }
+    public List<TableStructs> getTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
+                                                  @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
+                                                  @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
+                                                  String database,
+                                                  String tableName) {
         
-        return doGetTableInformation(url.toString(), dto.getUserName(), dto.getPassword(), dto.getDatabase(), dto.getTableName());
+        return tableStructsMapper.getTableInfo(database, tableName);
     }
     
     @DataSourceSwitch
-    public List<TableStructs> doGetTableInformation(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
-                                                    @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
-                                                    @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
-                                                    String database,
-                                                    String tableName) {
-        return tableStructsMapper.getTableInfo(database, tableName);
+    @Override
+    public void exportTableInfoSelective(@DatabaseParam(type = DatabaseParamEnum.URL) String url,
+                                         @DatabaseParam(type = DatabaseParamEnum.USER_NAME) String username,
+                                         @DatabaseParam(type = DatabaseParamEnum.PASSWORD) String password,
+                                         String database,
+                                         String tableName,
+                                         HttpServletResponse response) throws Exception {
+        List<TableStructs> tableInfos = tableStructsMapper.getTableInfo(database, tableName);
+        XWPFDocument document = new XWPFDocument();
+        createDocument(tableInfos,document);
+        OutputStream out = response.getOutputStream();
+        document.write(out);
+        document.close();
+        out.close();
     }
 }
