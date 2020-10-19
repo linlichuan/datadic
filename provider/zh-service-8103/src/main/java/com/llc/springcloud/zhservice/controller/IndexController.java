@@ -1,5 +1,6 @@
 package com.llc.springcloud.zhservice.controller;
 
+import com.llc.springcloud.util.TimeUtil;
 import com.llc.springcloud.util.response.JsonResponse;
 import com.llc.springcloud.zhservice.entity.Story;
 import com.llc.springcloud.zhservice.entity.StoryDetail;
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("story")
+@RequestMapping("news")
 public class IndexController {
 	
 	@Resource
@@ -21,7 +22,7 @@ public class IndexController {
 	
 	@RequestMapping(value = "latest", method = RequestMethod.GET)
 	public JsonResponse<List<Story>> getLatestList() {
-		return JsonResponse.ok(indexService.getLatest());
+		return JsonResponse.ok(indexService.getLatest(TimeUtil.getCurrentDate()));
 	}
 	
 	@RequestMapping("get/{id}")
@@ -29,4 +30,13 @@ public class IndexController {
 		return JsonResponse.ok(indexService.getStoryDetail(id));
 	}
 	
+	@RequestMapping("before/{date}")
+	public JsonResponse<List<Story>> getBeforeList(@PathVariable("date") String date) {
+		return JsonResponse.ok(indexService.getBefore(date));
+	}
+	
+	@RequestMapping("get")
+	public JsonResponse<String> get() {
+		return JsonResponse.ok("success");
+	}
 }

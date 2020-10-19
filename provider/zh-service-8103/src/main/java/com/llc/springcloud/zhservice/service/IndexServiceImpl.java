@@ -25,31 +25,12 @@ public class IndexServiceImpl implements IndexService{
 	private StoryDetailPoMapper storyDetailPoMapper;
 	
 	@Override
-	public List<Story> getLatest() {
-		Date now = TimeUtil.getCurrentDate();
+	public List<Story> getLatest(Date now) {
 		List<Story> result = storyPoMapper.getLatestList(now);
 		if (result.isEmpty()) {
 			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/latest");
 			JSONObject json = (JSONObject)JSON.parse(jsonStr);
-			JSONArray array = json.getJSONArray("stories");
-			Story dto = null;
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject obj = array.getJSONObject(i);
-				dto = new Story();
-				dto.setCreateDate(now);
-				dto.setGaPrefix(obj.getString("ga_prefix"));
-				dto.setHint(obj.getString("hint"));
-				dto.setImageHue(obj.getString("image_hue"));
-				dto.setTitle(obj.getString("title"));
-				JSONArray images = obj.getJSONArray("images");
-				String[] imgs = images.toArray(new String[0]);
-				dto.setImages(StringUtil.join(imgs, ','));
-				dto.setStoryId(obj.getInteger("id"));
-				dto.setUrl(obj.getString("url"));
-				dto.setType(obj.getInteger("type"));
-				result.add(dto);
-				storyPoMapper.insertSelective(dto);
-			}
+			saveStory(json, now, result);
 		}
 		return result;
 	}
@@ -72,5 +53,49 @@ public class IndexServiceImpl implements IndexService{
 			storyDetailPoMapper.insertSelective(storyDetail);
 		}
 		return storyDetail;
+	}
+	
+	@Override
+	public List<Story> getBefore(String date) {
+		Date dt = TimeUtil.strToDate(date, "yyyy-MM-dd");
+		return getBefore(dt);
+	}
+	
+	@Override
+	public List<Story> getBefore(Date date) {
+		List<Story> result = storyPoMapper.getLatestList(date);
+		String numStr = TimeUtil.dateToStr(date, "yyyy-MM-dd").replaceAll("-", "");
+		if (result.isEmpty()) {
+			
+			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + numStr);
+			JSONObject json = (JSONObject)JSON.parse(jsonStr);
+			saveStory(json, date, result);
+		}
+		return result;
+	}
+	
+	public void saveStory(JSONObject json, Date dt, List<Story> result) {
+		JSONArray array = json.getJSONArray("stories");
+		Story dto = null;
+		Integer storyId = null;
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject obj = array.getJSONObject(i);
+			storyId = obj.getInteger("id");
+			dto = new Story();
+			dto.setCreateDate(dt);
+			dto.setGaPrefix(obj.getString("ga_prefix"));
+			dto.setHint(obj.getString("hint"));
+			dto.setImageHue(obj.getString("image_hue"));
+			dto.setTitle(obj.getString("title"));
+			JSONArray images = obj.getJSONArray("images");
+			String[] imgs = images.toArray(new String[0]);
+			dto.setImages(StringUtil.join(imgs, ','));
+			dto.setStoryId(storyId);
+			dto.setUrl(obj.getString("url"));
+			dto.setType(obj.getInteger("type"));
+			result.add(dto);
+			storyPoMapper.insertSelective(dto);
+			getStoryDetail(storyId);
+		}
 	}
 }
