@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class IndexServiceImpl implements IndexService{
@@ -27,7 +28,7 @@ public class IndexServiceImpl implements IndexService{
 	@Override
 	public List<Story> getLatest(Date now) {
 		List<Story> result = storyPoMapper.getLatestList(now);
-		if (result.isEmpty()) {
+		if (result.isEmpty() || result.size() < 6) {
 			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/latest");
 			JSONObject json = (JSONObject)JSON.parse(jsonStr);
 			saveStory(json, now, result);
@@ -81,6 +82,12 @@ public class IndexServiceImpl implements IndexService{
 		for (int i = 0; i < array.size(); i++) {
 			JSONObject obj = array.getJSONObject(i);
 			storyId = obj.getInteger("id");
+			if (result.size() > 0) {
+				Integer sid = storyId;
+				if (result.stream().filter(r -> Objects.equals(r.getStoryId(), sid)).count() > 0) {
+					continue;
+				}
+			}
 			dto = new Story();
 			dto.setCreateDate(dt);
 			dto.setGaPrefix(obj.getString("ga_prefix"));

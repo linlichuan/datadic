@@ -17,7 +17,7 @@ public class GetStoryTask {
 	@Resource
 	IndexService indexService;
 	
-	@Scheduled(cron = "0 5 0 * * ? *")
+	@Scheduled(cron = "0 0 * * * ? *")
 	public void execute() {
 		log.info("get story task start {}", System.currentTimeMillis());
 		indexService.getBefore(TimeUtil.getLastDate());
