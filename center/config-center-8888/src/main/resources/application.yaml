@@ -4,8 +4,8 @@ spring:
       server:
         git:
           uri: https://github.com/linlichuan/datadic.git
-          username: 807977007@qq.com
-          password: githubllc007
+#          username:
+#          password:
           search-paths: /config/**
       label: master
   config:
