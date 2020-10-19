@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  mysql-llc:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    #和密码相关的插件，加上后就能用设置的密码访问了
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./mysql:/opt/llc/myApp/mysql
+      - ./mysql/datadir:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/my.cnf
+      - ./mysql/scripts/:/docker-entrypoint-initdb.d/
+    ports:
+      - "3306:3306"
+    networks:
+      - my-net-work
+  zh-api:
+    build:
+      context: ./zh-api
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./zh-api:/opt/llc/myApp/zh-api    
+    depends_on:
+      - mysql-llc
+    ports:
+      - "8103:8103"
+    entrypoint: ["java","-jar","/opt/llc/myApp/zh-api/zh-service-8103-1.0.0.jar"]
+    networks:
+      - my-net-work
+networks:
+  my-net-work:
