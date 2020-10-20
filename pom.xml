@@ -134,6 +134,7 @@
                     <include>*.yaml</include>
                     <include>*.properties</include>
                     <include>*.xml</include>
+                    <include>template/*</include>
                 </includes>
             </resource>
         </resources>

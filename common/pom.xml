@@ -19,11 +19,18 @@
 
 
     <properties>
+        <my.util.version>1.0.0</my.util.version>
         <java.version>1.8</java.version>
     </properties>
 
-    <dependencies>
-
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.llc</groupId>
+                <artifactId>util</artifactId>
+                <version>${my.util.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

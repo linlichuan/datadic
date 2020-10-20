@@ -3,7 +3,7 @@ package com.llc.springcloud.apiservice.controller;
 import com.llc.springcloud.apiservice.dto.TableConnectMsgDto;
 import com.llc.springcloud.apiservice.service.IIndexService;
 import com.llc.springcloud.apiservice.entity.TableStructs;
-import com.llc.springcloud.util.response.JsonResponse;
+import com.llc.springcloud.web.response.JsonResponse;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
