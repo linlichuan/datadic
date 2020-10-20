@@ -19,26 +19,5 @@ import java.net.URL;
 public class SpringConfig {
 	
 	private final static Logger log = LoggerFactory.getLogger(SpringConfig.class);
-	
-	@Bean
-	@AliasFor("freemarkerCfg")
-	public freemarker.template.Configuration freemarkerCfg() {
-		try {
-			File file = null;
-			InputStream in;
-			freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_28);
-			URL url = SpringConfig.class.getResource("/template");
-			if (url != null) {
-				file = new File(url.toURI());
-			}
-			cfg.setDirectoryForTemplateLoading(file);
-			cfg.setDefaultEncoding("UTF-8");
-			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-			return cfg;
-		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+
 }

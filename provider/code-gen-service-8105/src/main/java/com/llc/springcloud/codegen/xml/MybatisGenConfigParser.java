@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class MybatisGenConfigParser {
 	
-	public static final String DEFAULT_CONFIG_TMP_PATH = "gen-config.xml";
+	public static final String DEFAULT_CONFIG_TMP_PATH = "gen-config.ftl";
 	private final static Logger log = LoggerFactory.getLogger(MybatisGenConfigParser.class);
 	private InputStream in;
 	private static MybatisGenConfigParser parser;
@@ -132,5 +132,9 @@ public class MybatisGenConfigParser {
 			}
 		}
 		return parser;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(MybatisGenConfigParser.getInstance().parse(null).toJSONString());
 	}
 }
