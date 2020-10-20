@@ -26,7 +26,7 @@ public class IndexController {
 	@ApiOperation(value = "获取最新文章", httpMethod = "GET")
 	@RequestMapping(value = "latest", method = RequestMethod.GET)
 	public JsonResponse<List<Story>> getLatestList() {
-		return JsonResponse.ok(indexService.getLatest(TimeUtil.getCurrentDate()));
+		return JsonResponse.ok(indexService.getLatest());
 	}
 	
 	@ApiOperation(value = "获取详情", httpMethod = "GET")

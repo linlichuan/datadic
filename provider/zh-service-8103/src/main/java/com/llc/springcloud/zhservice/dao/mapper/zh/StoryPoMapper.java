@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface StoryPoMapper extends StoryMapper {
 	
-	List<Story> getLatestList(@Param("date") Date date);
+	List<Story> getLatestList(@Param("date") String date);
 	
 }

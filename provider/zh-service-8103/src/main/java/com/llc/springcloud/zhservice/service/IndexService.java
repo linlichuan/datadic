@@ -8,8 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface IndexService {
-	List<Story> getLatest(Date date);
+	List<Story> getLatest();
 	StoryDetail getStoryDetail(Integer id);
 	List<Story> getBefore(String date);
-	List<Story> getBefore(Date date);
 }

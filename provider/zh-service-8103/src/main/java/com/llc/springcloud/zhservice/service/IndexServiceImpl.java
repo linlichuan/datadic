@@ -26,7 +26,8 @@ public class IndexServiceImpl implements IndexService{
 	private StoryDetailPoMapper storyDetailPoMapper;
 	
 	@Override
-	public List<Story> getLatest(Date now) {
+	public List<Story> getLatest() {
+		String now = TimeUtil.dateToStr(new Date(), "yyyyMMdd");
 		List<Story> result = storyPoMapper.getLatestList(now);
 		if (result.isEmpty() || result.size() < 6) {
 			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/latest");
@@ -58,24 +59,20 @@ public class IndexServiceImpl implements IndexService{
 	
 	@Override
 	public List<Story> getBefore(String date) {
-		Date dt = TimeUtil.strToDate(date, "yyyy-MM-dd");
-		return getBefore(dt);
-	}
-	
-	@Override
-	public List<Story> getBefore(Date date) {
 		List<Story> result = storyPoMapper.getLatestList(date);
-		String numStr = TimeUtil.dateToStr(date, "yyyy-MM-dd").replaceAll("-", "");
 		if (result.isEmpty()) {
 			
-			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + numStr);
+			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + date);
+			if (StringUtil.isBlank(jsonStr)) {
+				return result;
+			}
 			JSONObject json = (JSONObject)JSON.parse(jsonStr);
 			saveStory(json, date, result);
 		}
 		return result;
 	}
 	
-	public void saveStory(JSONObject json, Date dt, List<Story> result) {
+	public void saveStory(JSONObject json, String dt, List<Story> result) {
 		JSONArray array = json.getJSONArray("stories");
 		Story dto = null;
 		Integer storyId = null;
@@ -89,7 +86,8 @@ public class IndexServiceImpl implements IndexService{
 				}
 			}
 			dto = new Story();
-			dto.setCreateDate(dt);
+			dto.setDate(dt);
+			dto.setCreateDate(TimeUtil.strToDate(dt, "yyyyMMdd"));
 			dto.setGaPrefix(obj.getString("ga_prefix"));
 			dto.setHint(obj.getString("hint"));
 			dto.setImageHue(obj.getString("image_hue"));

@@ -12,11 +12,12 @@
 		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
 		<result column="images" property="images" jdbcType="LONGVARCHAR" />
 		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<select id="getLatestList" resultMap="StoryListDtoResultMap">
-		SELECT s.id, s.image_hue, s.url, s.hint, s.ga_prefix, s.type, s.story_id, s.create_date, s.images, s.title
+		SELECT s.id, s.image_hue, s.url, s.hint, s.ga_prefix, s.type, s.story_id, s.create_date, s.images, s.title, s.date
 		FROM story as s
-		WHERE s.create_date = #{date,jdbcType=TIMESTAMP}
+		WHERE s.date = #{date,jdbcType=VARCHAR}
 	</select>
 </mapper>
