@@ -1,4 +1,4 @@
-package com.llc.springcloud.util.response;
+package com.llc.springcloud.web.response;
 
 import com.llc.springcloud.util.StringUtil;
 
@@ -34,7 +34,11 @@ public class JsonResponse<T> implements Serializable {
 	}
 	
 	public static <T> JsonResponse<T> failure() {
-		return new JsonResponse<T>().error();
+		return new JsonResponse<T>().error(ERROR_MSG);
+	}
+	
+	public static <T> JsonResponse<T> failure(String msg) {
+		return new JsonResponse<T>().error(msg);
 	}
 	
 	
@@ -45,8 +49,8 @@ public class JsonResponse<T> implements Serializable {
 		return this;
 	}
 	
-	public JsonResponse<T> error() {
-		this.msg = ERROR_MSG;
+	public JsonResponse<T> error(String msg) {
+		this.msg = StringUtil.isBlank(msg) ? ERROR_MSG : msg;
 		this.code = ERROR_CODE;
 		this.data = null;
 		return this;
