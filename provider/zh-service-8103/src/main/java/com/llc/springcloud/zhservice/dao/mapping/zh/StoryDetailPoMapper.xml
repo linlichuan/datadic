@@ -15,7 +15,7 @@
 	</resultMap>
 
 	<select id="getStoryDetail" resultMap="StoryDetailDtoResultMap">
-		SELECT sd.id, sd.image_hue, sd.image_source, sd.title, sd.url, sd.image, sd.share_url, sd.detail_id, sd.type
+		SELECT sd.body, sd.id, sd.image_hue, sd.image_source, sd.title, sd.url, sd.image, sd.share_url, sd.detail_id, sd.type
 		FROM story_detail as sd
 		WHERE sd.detail_id = #{detailId,jdbcType=INTEGER}
 	</select>

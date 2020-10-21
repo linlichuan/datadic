@@ -1,0 +1,31 @@
+server:
+  port: 8103
+  servlet:
+    context-path: /zh-api
+mybatis:
+  mapper-locations: classpath:com/llc/springcloud/zhservice/dao/mapping/**/*.xml
+  configuration:
+    #是否开启驼峰转换
+    map-underscore-to-camel-case: true
+    #是否在null时也调用setter显示
+    call-setters-on-nulls: true
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+spring:
+  application:
+    name: zh-service-8103
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://120.79.39.218:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force-request: true
+      force-response: true
+eureka:
+  client:
+    enabled: false
