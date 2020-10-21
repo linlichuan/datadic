@@ -1,5 +1,7 @@
 server:
   port: 8103
+  servlet:
+    context-path: /zh-api
 mybatis:
   mapper-locations: classpath:com/llc/springcloud/zhservice/dao/mapping/**/*.xml
   configuration:
@@ -14,9 +16,16 @@ spring:
     name: zh-service-8103
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://localhost:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://120.79.39.218:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force-request: true
+      force-response: true
 eureka:
   client:
     enabled: false
