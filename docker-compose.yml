@@ -14,6 +14,9 @@ services:
       - ./mysql/scripts/:/docker-entrypoint-initdb.d/
     ports:
       - "3306:3306"
+    deploy:
+      restart_policy:
+        condition: any
     networks:
       - my-net-work
   zh-api:
@@ -27,7 +30,10 @@ services:
       - mysql-llc
     ports:
       - "8103:8103"
-    entrypoint: ["java","-jar","/opt/llc/myApp/zh-api/zh-service-8103-1.0.0.jar"]
+    deploy:
+      restart_policy:
+        condition: any
+    entrypoint: ["java", "-jar", "-Dfile.encoding=UTF-8", "/opt/llc/myApp/zh-api/zh-service-8103-1.0.0.jar"]
     networks:
       - my-net-work
 networks:

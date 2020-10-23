@@ -4,3 +4,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+spring:
+  cloud:
+    gateway:
+      enabled: true
+  application:
+    name: gateway-8887

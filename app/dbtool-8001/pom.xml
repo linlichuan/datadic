@@ -25,5 +25,11 @@
     </build>
     <modelVersion>4.0.0</modelVersion>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.llc</groupId>
+            <artifactId>web</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

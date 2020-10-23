@@ -27,6 +27,10 @@
 			<version>${kotlin.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.llc</groupId>
+			<artifactId>web</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
