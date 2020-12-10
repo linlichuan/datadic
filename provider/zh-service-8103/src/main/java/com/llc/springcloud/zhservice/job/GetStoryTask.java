@@ -20,8 +20,8 @@ public class GetStoryTask {
 	
 	@Scheduled(cron = "0 0 * * * ?")
 	public void execute() {
-		log.info("get story task start {}", System.currentTimeMillis());
+		log.info("get story task start {}", System.nanoTime());
 		indexService.getLatest();
-		log.info("get story task end {}", System.currentTimeMillis());
+		log.info("get story task end {}", System.nanoTime());
 	}
 }
