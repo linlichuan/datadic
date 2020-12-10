@@ -14,7 +14,7 @@ public class StringUtil {
 		return num == null ? "" : String.valueOf(num);
 	}
 
-	public static String join(String[] strs, char separator) {
+	public static String join(char separator, String...strs) {
 		if (strs == null || strs.length == 0) {
 			return "";
 		}

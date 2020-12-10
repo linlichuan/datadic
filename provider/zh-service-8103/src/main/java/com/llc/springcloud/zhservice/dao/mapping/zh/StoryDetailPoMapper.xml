@@ -12,10 +12,11 @@
 		<result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
 		<result column="detail_id" property="detailId" jdbcType="INTEGER" />
 		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="is_top_story" property="isTopStory" jdbcType="BIT" />
 	</resultMap>
 
 	<select id="getStoryDetail" resultMap="StoryDetailDtoResultMap">
-		SELECT sd.body, sd.id, sd.image_hue, sd.image_source, sd.title, sd.url, sd.image, sd.share_url, sd.detail_id, sd.type
+		SELECT sd.body, sd.id, sd.image_hue, sd.image_source, sd.title, sd.url, sd.image, sd.share_url, sd.detail_id, sd.type, sd.is_top_story
 		FROM story_detail as sd
 		WHERE sd.detail_id = #{detailId,jdbcType=INTEGER}
 	</select>

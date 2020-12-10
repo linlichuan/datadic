@@ -13,10 +13,11 @@
 		<result column="images" property="images" jdbcType="LONGVARCHAR" />
 		<result column="title" property="title" jdbcType="VARCHAR"/>
 		<result column="date" property="date" jdbcType="VARCHAR"/>
+		<result column="is_top_story" property="isTopStory" jdbcType="BIT"/>
 	</resultMap>
 
 	<select id="getLatestList" resultMap="StoryListDtoResultMap">
-		SELECT s.id, s.image_hue, s.url, s.hint, s.ga_prefix, s.type, s.story_id, s.create_date, s.images, s.title, s.date
+		SELECT s.id, s.image_hue, s.url, s.hint, s.ga_prefix, s.type, s.story_id, s.create_date, s.images, s.title, s.date, s.is_top_story
 		FROM story as s
 		WHERE s.date = #{date,jdbcType=VARCHAR}
 	</select>
