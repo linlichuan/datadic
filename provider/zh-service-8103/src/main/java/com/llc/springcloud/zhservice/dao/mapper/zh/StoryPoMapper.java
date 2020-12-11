@@ -12,4 +12,7 @@ public interface StoryPoMapper extends StoryMapper {
 	
 	List<Story> getLatestList(@Param("date") String date);
 	
+	List<Integer> getExistIdList(@Param("idList") List<Integer> idList);
+	
+	Story getByStoryId(@Param("storyId") Integer storyId);
 }

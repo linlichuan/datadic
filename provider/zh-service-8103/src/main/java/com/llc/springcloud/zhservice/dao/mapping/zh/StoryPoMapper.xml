@@ -21,4 +21,29 @@
 		FROM story as s
 		WHERE s.date = #{date,jdbcType=VARCHAR}
 	</select>
+
+	<select id="getExistIdList" resultType="java.lang.Integer">
+		SELECT id
+		FROM story
+		WHERE
+			<choose>
+				<when test="@com.llc.springcloud.util.ListUtil@isEmpty(idList)">
+					id IN
+					<foreach collection="idList" item="item" open="(" separator="," close=")">
+						#{item,jdbcType=INTEGER}
+					</foreach>
+				</when>
+				<otherwise>
+					1 = 2
+				</otherwise>
+			</choose>
+	</select>
+
+	<select id="getByStoryId" resultMap="StoryListDtoResultMap">
+		SELECT
+			id, image_hue, url, hint, ga_prefix, type, story_id, create_date, images, title, date, is_top_story
+		FROM story
+		WHERE
+			story_id = #{storyId,jdbcType=INTEGER}
+	</select>
 </mapper>

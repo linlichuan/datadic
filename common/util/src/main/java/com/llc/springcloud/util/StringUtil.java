@@ -1,5 +1,8 @@
 package com.llc.springcloud.util;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 public class StringUtil {
 
 	public static boolean isNotBlank(String text) {
@@ -26,5 +29,21 @@ public class StringUtil {
 			}
 		}
 		return sb.toString();
+	}
+	
+	public static <T> String join(char separator, Collection<T> collect) {
+		if (collect == null || collect.isEmpty()) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		Iterator<T> it = collect.iterator();
+		while (it.hasNext()) {
+			sb.append(it.next()).append(separator);
+		}
+		String result = sb.toString();
+		if (result.endsWith(String.valueOf(separator))) {
+			result = result.substring(0, result.length() - 1);
+		}
+		return result;
 	}
 }

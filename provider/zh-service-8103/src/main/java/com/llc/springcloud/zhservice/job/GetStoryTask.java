@@ -21,7 +21,7 @@ public class GetStoryTask {
 	@Scheduled(cron = "0 0 * * * ?")
 	public void execute() {
 		log.info("get story task start {}", System.nanoTime());
-		indexService.getLatest();
+		indexService.getLatestFromRemote(null);
 		log.info("get story task end {}", System.nanoTime());
 	}
 }

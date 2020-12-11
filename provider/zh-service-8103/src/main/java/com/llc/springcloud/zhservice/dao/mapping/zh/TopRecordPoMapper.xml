@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llc.springcloud.zhservice.dao.mapper.zh.TopRecordPoMapper" >
+	<resultMap id="BaseResultMap" type="com.llc.springcloud.zhservice.entity.TopRecord" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="date" property="date" jdbcType="VARCHAR" />
+		<result column="top_date" property="topDate" jdbcType="TIMESTAMP" />
+		<result column="story_ids" property="storyIds" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, date, top_date, story_ids
+	</sql>
+
+	<select id="getByDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			top_record
+		WHERE
+			date = #{date,jdbcType=VARCHAR}
+	</select>
+</mapper>
