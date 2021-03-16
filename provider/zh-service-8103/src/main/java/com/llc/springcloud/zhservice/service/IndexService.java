@@ -39,7 +39,7 @@ public class IndexService {
 		String now = TimeUtil.dateToStr(new Date(), "yyyyMMdd");
 		List<Story> result = storyPoMapper.getLatestList(now);
 		if (result.isEmpty()) {
-			result = getLatestFromRemote(now);
+			result = getLatestFromRemote();
 		}
 		return result;
 	}
@@ -57,23 +57,21 @@ public class IndexService {
 	public List<Story> getBefore(String date) {
 		List<Story> result = storyPoMapper.getLatestList(date);
 		if (result.isEmpty()) {
-			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + date);
+			String tomorrer = TimeUtil.dateToStr(TimeUtil.addDay(TimeUtil.strToDate(date, "yyyyMMdd"), 1), "yyyyMMdd");
+			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + tomorrer);
 			if (StringUtil.isBlank(jsonStr)) {
 				return result;
 			}
 			JSONObject json = (JSONObject)JSON.parse(jsonStr);
-			result = parseStoryAndSave(json, date);
+			result = parseStoryAndSave(json);
 		}
 		return result;
 	}
 	
-	public List<Story> getLatestFromRemote(String dateStr) {
-		if (StringUtil.isBlank(dateStr)) {
-			dateStr = TimeUtil.dateToStr(new Date(), "yyyyMMdd");
-		}
+	public List<Story> getLatestFromRemote() {
 		String latest = HttpUtil.get("http://news-at.zhihu.com/api/4/news/latest");
 		JSONObject json = (JSONObject)JSON.parse(latest);
-		List<Story> storyList = parseStoryAndSave(json, dateStr);
+		List<Story> storyList = parseStoryAndSave(json);
 		Set<Integer> topStoryIds = storyList.stream().filter(Story::getIsTopStory).map(Story::getStoryId).collect(Collectors.toSet());
 		if (!topStoryIds.isEmpty() && json.containsKey("date")) {
 			String topDate = json.getString("date");
@@ -88,8 +86,9 @@ public class IndexService {
 		return storyList;
 	}
 	
-	private List<Story> parseStoryAndSave(JSONObject json, String dt) {
+	private List<Story> parseStoryAndSave(JSONObject json) {
 		List<Story> result = new ArrayList<>();
+		String dt = json.getString("date");
 		if (json.containsKey(ZHConstant.STORIES)) {
 			JSONArray stories = json.getJSONArray(ZHConstant.STORIES);
 			result.addAll(saveStory(stories, dt, false));
