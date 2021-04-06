@@ -29,10 +29,15 @@ public class GetStoryTask {
 	@Scheduled(cron = "0 0 * * * ?")
 	public void execute() {
 		log.info("get story task start {}", System.nanoTime());
-		String now = TimeUtil.dateToStr(new Date(), "yyyyMMdd");
-		List<Story> result = storyPoMapper.getLatestList(now);
-		if (ListUtil.isEmpty(result)) {
-			indexService.getLatestFromRemote();
+		Date now = new Date();
+		String nowStr = TimeUtil.dateToStr(now, "yyyyMMdd");
+		while (true) {
+			if (ListUtil.isEmpty(storyPoMapper.getLatestList(nowStr))) {
+				indexService.getLatestFromRemote();
+			} else {
+				break;
+			}
+			nowStr = TimeUtil.dateToStr(TimeUtil.addDay(now, -1), "yyyyMMdd");
 		}
 		log.info("get story task end {}", System.nanoTime());
 	}

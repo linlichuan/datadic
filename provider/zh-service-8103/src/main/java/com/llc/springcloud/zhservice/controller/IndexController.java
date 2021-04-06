@@ -44,7 +44,6 @@ public class IndexController {
 	@ApiOperation(value = "testDate", httpMethod = "GET")
 	@RequestMapping("testDate")
 	public JsonResponse<String> testDate() {
-
-		return JsonResponse.ok(TimeUtil.getCurrentDate().toString());
+		return JsonResponse.ok(String.format("这是ok的 %s", TimeUtil.getCurrentDate().toString()));
 	}
 }
