@@ -24,6 +24,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.llc</groupId>
+            <artifactId>bean</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>

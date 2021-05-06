@@ -43,7 +43,10 @@ public class IndexController {
 	
 	@ApiOperation(value = "testDate", httpMethod = "GET")
 	@RequestMapping("testDate")
-	public JsonResponse<String> testDate() {
+	public JsonResponse<String> testDate() throws NoSuchMethodException {
+		
+		System.out.println(IndexController.class.getMethod("getLatestList").getDeclaredAnnotation(ApiOperation.class).value());
+		
 		return JsonResponse.ok(String.format("这是ok的 %s", TimeUtil.getCurrentDate().toString()));
 	}
 }

@@ -1,0 +1,12 @@
+server:
+  port: 8761
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://192.168.10.253:8761/eureka/
+    registry-fetch-interval-seconds: 20
+spring:
+  application:
+    name: eureka-server

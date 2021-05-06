@@ -5,6 +5,7 @@
     <modules>
         <module>web</module>
         <module>util</module>
+        <module>bean</module>
     </modules>
     <parent>
         <groupId>com.llc</groupId>

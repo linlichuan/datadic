@@ -22,9 +22,12 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://120.79.39.218:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
     url: jdbc:mysql://192.168.10.253:3306/zh-api?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
 eureka:
   client:
-    enabled: false
+    enabled: true
+    serviceUrl:
+      defaultZone: http://192.168.10.253:8761/eureka/

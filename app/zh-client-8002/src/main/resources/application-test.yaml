@@ -1,0 +1,27 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /zh-client
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.10.253:8761/eureka/
+feign:
+  compression:
+    request:
+      #请求压缩
+      enabled: true
+      #压缩资源类型
+      mime-types: text/xml,application/xml,application/json
+      #开始压缩的阈值
+      min-request-size: 2048
+  hystrix:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+spring:
+  application:
+    name: zh-client

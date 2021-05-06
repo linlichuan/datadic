@@ -12,5 +12,39 @@
 
     <artifactId>zh-client</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <mainClass>com.llc.springcloud.zhclient.Application</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.llc</groupId>
+            <artifactId>bean</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.llc</groupId>
+            <artifactId>web</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+
 
 </project>

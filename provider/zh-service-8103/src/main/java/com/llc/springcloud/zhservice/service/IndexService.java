@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.llc.springcloud.util.HttpUtil;
+import com.llc.springcloud.util.ListUtil;
 import com.llc.springcloud.util.StringUtil;
 import com.llc.springcloud.util.TimeUtil;
 import com.llc.springcloud.zhservice.constant.ZHConstant;
@@ -57,8 +58,8 @@ public class IndexService {
 	public List<Story> getBefore(String date) {
 		List<Story> result = storyPoMapper.getLatestList(date);
 		if (result.isEmpty()) {
-			String tomorrer = TimeUtil.dateToStr(TimeUtil.addDay(TimeUtil.strToDate(date, "yyyyMMdd"), 1), "yyyyMMdd");
-			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + tomorrer);
+			String tomorrow = TimeUtil.dateToStr(TimeUtil.addDay(TimeUtil.strToDate(date, "yyyyMMdd"), 1), "yyyyMMdd");
+			String jsonStr = HttpUtil.get("http://news-at.zhihu.com/api/4/news/before/" + tomorrow);
 			if (StringUtil.isBlank(jsonStr)) {
 				return result;
 			}
@@ -153,6 +154,22 @@ public class IndexService {
 		storyDetail.setIsTopStory(isTopStory);
 		storyDetailPoMapper.insertSelective(storyDetail);
 		return storyDetail;
+	}
+	
+	public void taskDetail() {
+		Date now = new Date();
+		String nowStr;
+		for (int i = 0; ; i--) {
+			nowStr = TimeUtil.dateToStr(TimeUtil.addDay(now, i), "yyyyMMdd");
+			if (ListUtil.isEmpty(storyPoMapper.getLatestList(nowStr))) {
+				getLatestFromRemote();
+			} else {
+				break;
+			}
+			if (i < -5) {
+				break;
+			}
+		}
 	}
 	
 }

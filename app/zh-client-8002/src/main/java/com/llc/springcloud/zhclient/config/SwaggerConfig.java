@@ -1,4 +1,4 @@
-package com.llc.springcloud.zhservice.config;
+package com.llc.springcloud.zhclient.config;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.context.annotation.Bean;
@@ -11,16 +11,16 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//@Configuration
-//@EnableSwagger2
-//@EnableSwaggerBootstrapUI
+@Configuration
+@EnableSwagger2
+@EnableSwaggerBootstrapUI
 public class SwaggerConfig {
-//	@Bean
+	@Bean
 	public Docket createRestApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.llc.springcloud.zhservice.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.llc.springcloud.zhclient.controller"))
 				.paths(PathSelectors.any())
 				.build();
 	}
