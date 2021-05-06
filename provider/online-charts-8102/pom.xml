@@ -39,7 +39,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.llc.springcloud.computeservice.application</mainClass>
+                    <mainClass>com.llc.springcloud.onlinecharts.application</mainClass>
                 </configuration>
                 <executions>
                     <execution>

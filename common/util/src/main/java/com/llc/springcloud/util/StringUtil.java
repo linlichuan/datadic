@@ -31,6 +31,18 @@ public class StringUtil {
 		return sb.toString();
 	}
 	
+	public static Integer strToInt(String str) {
+		try {
+			return Integer.parseInt(str);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public static boolean isNumber(String str) {
+		return strToInt(str) != null;
+	}
+	
 	public static <T> String join(char separator, Collection<T> collect) {
 		if (collect == null || collect.isEmpty()) {
 			return "";
