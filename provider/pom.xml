@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>api-service-8101</module>
-        <module>compute-service-8102</module>
+        <module>online-charts-8102</module>
         <module>zh-service-8103</module>
 	    <module>kotlin-service-demo-8104</module>
 	    <module>code-gen-service-8105</module>

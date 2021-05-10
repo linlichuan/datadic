@@ -157,12 +157,13 @@ public class IndexService {
 	}
 	
 	public void taskDetail() {
+		getLatestFromRemote();
 		Date now = new Date();
 		String nowStr;
-		for (int i = 0; ; i--) {
+		for (int i = 1; ; i--) {
 			nowStr = TimeUtil.dateToStr(TimeUtil.addDay(now, i), "yyyyMMdd");
 			if (ListUtil.isEmpty(storyPoMapper.getLatestList(nowStr))) {
-				getLatestFromRemote();
+				getBefore(nowStr);
 			} else {
 				break;
 			}
