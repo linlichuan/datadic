@@ -160,13 +160,25 @@ public class IndexService {
 		getLatestFromRemote();
 		Date now = new Date();
 		String nowStr;
-		for (int i = 1; ; i--) {
-			nowStr = TimeUtil.dateToStr(TimeUtil.addDay(now, i), "yyyyMMdd");
+		for (int i = 1; ; i++) {
+			nowStr = TimeUtil.dateToStr(TimeUtil.addDay(now, i * -1), "yyyyMMdd");
 			if (ListUtil.isEmpty(storyPoMapper.getLatestList(nowStr))) {
 				getBefore(nowStr);
 			} else {
 				break;
 			}
+			if (i >= 5) {
+				break;
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		Date now = new Date();
+		String nowStr;
+		for (int i = 1; ; i--) {
+			nowStr = TimeUtil.dateToStr(TimeUtil.addDay(now, i), "yyyyMMdd");
+			System.out.println(nowStr);
 			if (i < -5) {
 				break;
 			}

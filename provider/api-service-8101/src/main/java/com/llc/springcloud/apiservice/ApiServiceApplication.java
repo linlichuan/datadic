@@ -11,7 +11,7 @@ import com.llc.springcloud.apiservice.config.DynamicDataSource;
 
 
 @SpringBootApplication(scanBasePackages = {"com.llc.springcloud.web.*", "com.llc.springcloud.apiservice.*"})
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @EntityScan(basePackages = {"com.llc.springcloud.common.hibernate"})
 @Import({DynamicDataSource.class})
 public class ApiServiceApplication {
