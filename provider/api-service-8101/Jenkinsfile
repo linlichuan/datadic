@@ -1,0 +1,39 @@
+pipeline {
+
+    agent any
+
+    environment {
+        IMAGE_NAME = 'myapp_api'
+    }
+
+    stages{
+
+        stage("Prepare") {
+            steps {
+                sh 'docker ps | grep ${IMAGE_NAME} | awk {'print $1'} | xargs docker stop'
+                sh 'docker ps | grep ${IMAGE_NAME} | awk {'print $1'} | xargs docker rm'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'git pull'
+                sh 'cd ./provider/api-service-8101/'
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Deploy') {
+            agent {
+                dockerfile {
+                    dir './provider/api-service-8101/'
+                    args `'--network=myapp_my-net-work -p 8101:8101 --name myapp_api'`
+                }
+            }
+            steps {
+
+            }
+        }
+
+    }
+}
