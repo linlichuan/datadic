@@ -17,6 +17,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'cd /opt/git_repo/datadic/datadic/'
                 sh 'git pull'
                 sh 'cd ./provider/api-service-8101/'
                 sh 'mvn clean package'
