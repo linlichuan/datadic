@@ -27,7 +27,7 @@ pipeline {
             agent {
                 dockerfile {
                     dir './provider/api-service-8101/'
-                    args `'--network=myapp_my-net-work -p 8101:8101 --name myapp_api'`
+                    args '--network=myapp_my-net-work -p 8101:8101 --name myapp_api'
                 }
             }
             steps {
