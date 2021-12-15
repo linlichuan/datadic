@@ -14,9 +14,6 @@ services:
       - ./mysql/scripts/:/docker-entrypoint-initdb.d/
     ports:
       - "3306:3306"
-    deploy:
-      restart_policy:
-        condition: any
     networks:
       - my-net-work
   zh-api:
@@ -27,13 +24,52 @@ services:
     volumes:
       - ./zh-api:/opt/llc/myApp/zh-api    
     depends_on:
-      - mysql-llc
+      - eureka
     ports:
       - "8103:8103"
-    deploy:
-      restart_policy:
-        condition: any
     entrypoint: ["java", "-jar", "-Dfile.encoding=UTF-8", "/opt/llc/myApp/zh-api/zh-service-8103-1.0.0.jar"]
+    networks:
+      - my-net-work
+#  zh-client:
+#    build:
+#      context: ./zh-client
+#      dockerfile: Dockerfile
+#    restart: always
+#    volumes:
+#      - ./zh-client:/opt/llc/myApp/zh-client
+#    depends_on:
+#      - zh-api
+#    ports:
+#      - "8002:8002"
+#    entrypoint: ["java", "-jar", "-Dfile.encoding=UTF-8", "/opt/llc/myApp/zh-client/zh-client-1.0.0.jar"]
+#    networks:
+#      - my-net-work
+  datadic:
+    build:
+      context: ./datadic
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./datadic:/opt/llc/myApp/datadic
+    depends_on:
+      - eureka
+    ports:
+      - "8101:8101"
+    entrypoint: ["java", "-jar", "-Dfile.encoding=UTF-8", "/opt/llc/myApp/datadic/api-service-1.0.0.jar"]
+    networks:
+      - my-net-work
+  eureka:
+    build:
+      context: ./eureka-8761
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./eureka-8761:/opt/llc/myApp/eureka-8761
+    depends_on:
+      - mysql-llc
+    ports:
+      - "8761:8761"
+    entrypoint: ["java", "-jar", "-Dfile.encoding=UTF-8", "/opt/llc/myApp/eureka-8761/eureka-1.0.0.jar"]  
     networks:
       - my-net-work
 networks:

@@ -1,214 +1,87 @@
 package com.llc.springcloud.codegen.tpl.tpldto;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
 @SuppressWarnings("serial")
 public class GenConfigDto implements Serializable {
 	
 	public GenConfigDto() {
 		super();
-		this.jdbcConnection = new jdbcConnection();
-		this.javaModelGenerator = new javaModelGenerator();
-		this.sqlMapGenerator = new sqlMapGenerator();
-		this.javaClientGenerator = new javaClientGenerator();
-		this.table = new table();
+		this.jdbcConnection = new JdbcConnection();
+		this.javaModelGenerator = new JavaModelGenerator();
+		this.sqlMapGenerator = new SqlMapGenerator();
+		this.javaClientGenerator = new JavaClientGenerator();
+		this.tableList = new ArrayList<>();
 	}
 	
-	jdbcConnection jdbcConnection;
-	javaModelGenerator javaModelGenerator;
-	sqlMapGenerator sqlMapGenerator;
-	javaClientGenerator javaClientGenerator;
-	table table;
+	private JdbcConnection jdbcConnection;
+	private JavaModelGenerator javaModelGenerator;
+	private SqlMapGenerator sqlMapGenerator;
+	private JavaClientGenerator javaClientGenerator;
+	private List<Table> tableList;
 	
-	public static class jdbcConnection {
-		String connectionURL = "";
-		String userId = "";
-		String password = "";
+	@Data
+	@AllArgsConstructor
+	public static class JdbcConnection {
+		private String connectionURL;
+		private String userId;
+		private String password;
 		
-		public jdbcConnection() {
+		public JdbcConnection() {
 			super();
 		}
+	}
+	
+	@Data
+	@AllArgsConstructor
+	public static class JavaModelGenerator {
+		private String targetPackage = "";
+		private String targetProject = "";
 		
-		public void setConnectionURL(String connectionURL) {
-			this.connectionURL = connectionURL;
-		}
-		
-		public String getConnectionURL() {
-			return this.connectionURL;
-		}
-		
-		public void setUserId(String userId) {
-			this.userId = userId;
-		}
-		
-		public String getUserId() {
-			return this.userId;
-		}
-		
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		
-		public String getPassword() {
-			return this.password;
+		public JavaModelGenerator() {
+			super();
 		}
 	}
 	
-	public static class javaModelGenerator {
+	@Data
+	@AllArgsConstructor
+	public static class SqlMapGenerator {
 		String targetPackage = "";
 		String targetProject = "";
 		
-		public javaModelGenerator() {
+		public SqlMapGenerator() {
 			super();
-		}
-		
-		public void setTargetPackage(String targetPackage) {
-			this.targetPackage = targetPackage;
-		}
-		
-		public String getTargetPackage() {
-			return this.targetPackage;
-		}
-		
-		public void setTargetProject(String targetProject) {
-			this.targetProject = targetProject;
-		}
-		
-		public String getTargetProject() {
-			return this.targetProject;
 		}
 	}
 	
-	public static class sqlMapGenerator {
-		String targetPackage = "";
-		String targetProject = "";
-		
-		public sqlMapGenerator() {
-			super();
-		}
-		
-		public void setTargetPackage(String targetPackage) {
-			this.targetPackage = targetPackage;
-		}
-		
-		public String getTargetPackage() {
-			return this.targetPackage;
-		}
-		
-		public void setTargetProject(String targetProject) {
-			this.targetProject = targetProject;
-		}
-		
-		public String getTargetProject() {
-			return this.targetProject;
-		}
-	}
-	
-	public static class javaClientGenerator {
+	@Data
+	@AllArgsConstructor
+	public static class JavaClientGenerator {
 		String targetPackage = "";
 		String targetProject = "";
 		String type = "";
 		
-		public javaClientGenerator() {
+		public JavaClientGenerator() {
 			super();
-		}
-		
-		public void setTargetPackage(String targetPackage) {
-			this.targetPackage = targetPackage;
-		}
-		
-		public String getTargetPackage() {
-			return this.targetPackage;
-		}
-		
-		public void setTargetProject(String targetProject) {
-			this.targetProject = targetProject;
-		}
-		
-		public String getTargetProject() {
-			return this.targetProject;
-		}
-		
-		public void setType(String type) {
-			this.type = type;
-		}
-		
-		public String getType() {
-			return this.type;
 		}
 	}
 	
-	public static class table {
+	@Data
+	@AllArgsConstructor
+	public static class Table {
 		String schema = "";
 		String tableName = "";
 		String domainObjectName = "";
 		
-		public table() {
+		public Table() {
 			super();
 		}
-		
-		public void setSchema(String schema) {
-			this.schema = schema;
-		}
-		
-		public String getSchema() {
-			return this.schema;
-		}
-		
-		public void setTableName(String tableName) {
-			this.tableName = tableName;
-		}
-		
-		public String getTableName() {
-			return this.tableName;
-		}
-		
-		public void setDomainObjectName(String domainObjectName) {
-			this.domainObjectName = domainObjectName;
-		}
-		
-		public String getDomainObjectName() {
-			return this.domainObjectName;
-		}
 	}
 	
-	public void setJdbcConnection(GenConfigDto.jdbcConnection jdbcConnection) {
-		this.jdbcConnection = jdbcConnection;
-	}
-	
-	public GenConfigDto.jdbcConnection getJdbcConnection() {
-		return this.jdbcConnection;
-	}
-	
-	public void setJavaModelGenerator(GenConfigDto.javaModelGenerator javaModelGenerator) {
-		this.javaModelGenerator = javaModelGenerator;
-	}
-	
-	public GenConfigDto.javaModelGenerator getJavaModelGenerator() {
-		return this.javaModelGenerator;
-	}
-	
-	public void setSqlMapGenerator(GenConfigDto.sqlMapGenerator sqlMapGenerator) {
-		this.sqlMapGenerator = sqlMapGenerator;
-	}
-	
-	public GenConfigDto.sqlMapGenerator getSqlMapGenerator() {
-		return this.sqlMapGenerator;
-	}
-	
-	public void setJavaClientGenerator(GenConfigDto.javaClientGenerator javaClientGenerator) {
-		this.javaClientGenerator = javaClientGenerator;
-	}
-	
-	public GenConfigDto.javaClientGenerator getJavaClientGenerator() {
-		return this.javaClientGenerator;
-	}
-	
-	public void setTable(GenConfigDto.table table) {
-		this.table = table;
-	}
-	
-	public GenConfigDto.table getTable() {
-		return this.table;
-	}
 }

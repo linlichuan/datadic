@@ -12,7 +12,7 @@ pipeline {
         HALLO_WORD = 'hallo word'
     }
 
-    stages{
+    stages {
         stage('Build') {
             steps {
                 echo CUSTOMER_ARG
@@ -20,13 +20,13 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Test') {
             steps {
 
             }
         }
 
-        stage('Test') {
+        stage('Deploy') {
             steps {
 
             }

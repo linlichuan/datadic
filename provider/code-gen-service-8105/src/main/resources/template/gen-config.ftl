@@ -4,17 +4,22 @@
 	<context id="context1">
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="${jdbcConnection.connectionURL}" userId="${jdbcConnection.userId}" password="${jdbcConnection.password}" />
+		<javaTypeResolver>
+			<property name="forceBigDecimals" values="true" />
+		</javaTypeResolver>
 		<javaModelGenerator targetPackage="${javaModelGenerator.targetPackage}" targetProject="${javaModelGenerator.targetProject}" />
 		<sqlMapGenerator targetPackage="${sqlMapGenerator.targetPackage}" targetProject="${sqlMapGenerator.targetProject}" />
-		<javaClientGenerator targetPackage="${javaClientGenerator.targetPackage}" targetProject="${javaClientGenerator.targetProject}" type="${javaClientGenerator.type}" />
-		
- 		<table schema="${table.schema}"
- 			tableName="${table.tableName}" domainObjectName="${table.domainObjectName}"
- 			enableCountByExample="false" enableDeleteByExample="false"
- 			enableSelectByExample="false" enableUpdateByExample="false">
- 			<property name="useActualColumnNames" value="false" />
- 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
- 		</table>
+		<javaClientGenerator targetPackage="${javaClientGenerator.targetPackage}" targetProject="${javaClientGenerator.targetProject}" type="XMLMAPPER" />
+
+		<#list tableList as table>
+			<table schema="${table.schema}"
+				tableName="${table.tableName}" domainObjectName="${table.domainObjectName}"
+				enableCountByExample="false" enableDeleteByExample="false"
+				enableSelectByExample="false" enableUpdateByExample="false">
+				<property name="useActualColumnNames" value="false" />
+				<generatedKey column="id" sqlStatement="MySql" identity="true" />
+			</table>
+		</#list>
 
 	</context>
 </generatorConfiguration>
