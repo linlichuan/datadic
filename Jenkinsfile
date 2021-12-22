@@ -1,34 +1,19 @@
 pipeline {
 
-    agent {
-        dockerfile {
-            filename 'Dockerfile'
-            dir 'provider/zh-service-8103/src'
-        }
-    }
-
-    environment {
-        CUSTOMER_ARG = 'customer_arg'
-        HALLO_WORD = 'hallo word'
-    }
+    agent any
 
     stages {
-        stage('Build') {
+        stage('pullCode') {
             steps {
-                echo CUSTOMER_ARG
-                echo HALLO_WORD
+                echo 'pull code'
+                checkout scm
             }
         }
 
-        stage('Test') {
+        stage('build') {
             steps {
-
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-
+                echo 'mvn build'
+                sh 'mvn clean package'
             }
         }
     }
