@@ -23,7 +23,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <mysql.connector.java.version>5.1.27</mysql.connector.java.version>
+        <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
         <my.web.version>1.0.0</my.web.version>
         <my.util.version>1.0.0</my.util.version>
         <mybatis.springboot.version>2.1.3</mybatis.springboot.version>
